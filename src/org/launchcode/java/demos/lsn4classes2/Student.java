@@ -1,5 +1,7 @@
 package org.launchcode.java.demos.lsn4classes2;
 
+import java.util.Objects;
+
 public class Student {
 
     private static int nextStudentId = 1;
@@ -30,20 +32,59 @@ public class Student {
 
 
      //TODO: Uncomment and complete the getGradeLevel method here:
-//    public String getGradeLevel() {
-//        // Determine the grade level of the student based on numberOfCredits
-//    }
+    public String getGradeLevel() {
 
-    // TODO: Complete the addGrade method.
+        String gradeLevel = "";
+        if (this.numberOfCredits >= 0 && this.numberOfCredits <= 29){
+            gradeLevel = "Freshman";
+        }
+        if (this.numberOfCredits >= 30 && this.numberOfCredits <= 59){
+            gradeLevel = "Sophomore";
+        }
+        if (this.numberOfCredits >= 60 && this.numberOfCredits <= 89){
+            gradeLevel = "Junior";
+        }
+        if (this.numberOfCredits >= 90){
+            gradeLevel = "Senior";
+        }
+        return gradeLevel;
+    }
+
+//     TODO: Complete the addGrade method.
     public void addGrade(int courseCredits, double grade) {
         // Update the appropriate fields: numberOfCredits, gpa
+        double currentQualityScore = this.gpa * this.numberOfCredits;
+        double totalQualityScore = currentQualityScore + grade;
+
+        this.numberOfCredits += courseCredits;
+        this.gpa = totalQualityScore / this.numberOfCredits;
+
     }
 
     // TODO: Add your custom 'toString' method here. Make sure it returns a well-formatted String rather
     //  than just the class fields.
 
+    public String toString(){
+        return "Student: " + this.name + " with ID No. " + this.studentId + " is a " + this.getGradeLevel() + " with "
+                + this.numberOfCredits + " credits and a GPA of " + this.gpa + ".";
+    }
+
     // TODO: Add your custom 'equals' method here. Consider which fields should match in order to call two
     //  Student objects equal.
+
+    public boolean equals(Object obj){
+        if(obj == this){
+            return true;
+        }
+        if(obj == null){
+            return false;
+        }
+        if(obj.getClass() != getClass()){
+            return false;
+        }
+        Student student = (Student) obj;
+        return student.getStudentId() == getStudentId();
+    }
 
     public String getName() {
         return name;
